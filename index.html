@@ -148,7 +148,6 @@
         <!-- UPI Payment -->
         <div id="upiBox" class="hidden">
             <p>Pay to UPI ID: <strong>sahilsaurav3@ybl</strong></p>
-            <p><strong>Remark:</strong> [Username] - [Followers]</p>
         </div>
 
         <!-- UTR Number Input -->
@@ -254,7 +253,7 @@
         }
 
         function redirectToPayment(username, selectedFollowers, totalPrice) {
-            const upiLink = `upi://pay?pa=sahilsaurav3@ybl&pn=InstagramFollowers&mc=0000&tid=12345&am=${totalPrice}&cu=INR;
+            const upiLink = `upi://pay?pa=sahilsaurav3@ybl&am=${totalPrice}&cu=INR`;
 
             // Open payment app in a new tab to ensure it works correctly on mobile devices
             window.open(upiLink, "_blank");
