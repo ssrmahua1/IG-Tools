@@ -254,7 +254,7 @@
         }
 
         function redirectToPayment(username, selectedFollowers, totalPrice) {
-            const upiLink = `upi://pay?pa=sahilsaurav3@ybl&pn=InstagramFollowers&mc=0000&tid=12345&am=${totalPrice}&cu=INR&url=https://your-website.com&tn=Pay for ${username} - ${selectedFollowers} followers`;
+            const upiLink = `upi://pay?pa=sahilsaurav3@ybl&pn=InstagramFollowers&mc=0000&tid=12345&am=${totalPrice}&cu=INR;
 
             // Open payment app in a new tab to ensure it works correctly on mobile devices
             window.open(upiLink, "_blank");
