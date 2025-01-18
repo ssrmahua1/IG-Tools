@@ -1,1 +1,214 @@
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Get Instagram Cheapest Followers</title><style>body{margin:0;font-family:Arial,sans-serif;background-color:#141414;color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;overflow:hidden}.container{text-align:center;max-width:500px;width:90%;margin:0 auto}h1{font-size:2.5rem;margin-bottom:20px;color:#e50914}input[type="text"],select{width:100%;padding:15px;margin:10px 0;border:1px solid #333;border-radius:5px;background:#222;color:white;font-size:1rem}button{padding:15px 20px;background-color:#e50914;color:white;font-size:1rem;border:none;border-radius:5px;cursor:pointer}button:hover{background-color:#f40612}.hidden{display:none}.result,.payment-box{margin-top:20px}.preloader{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);color:white;display:flex;align-items:center;justify-content:center;font-size:1.5rem;z-index:1000}.error{color:#ff4f4f;margin-top:10px}@media screen and (max-width:768px){h1{font-size:2rem}}</style></head><body><div class="preloader" id="preloader">Loading...</div><div class="container"><h1>Get Instagram Cheapest Followers</h1><input type="text" id="instagramUsername" placeholder="Enter Instagram Profile Link"><button onclick="validateUsername()">Next</button><div id="error" class="error"></div><div id="followersBox" class="hidden"><select id="followersSelect"><option value="">Select Followers</option><option value="1000">1000</option><option value="2000">2000</option><option value="3000">3000</option><option value="5000">5000</option><option value="10000">10K</option><option value="20000">20K</option><option value="30000">30K</option><option value="40000">40K</option><option value="50000">50K</option></select><button onclick="calculatePrice()">Calculate Price</button></div><div id="priceBox" class="hidden"><p id="priceDetails"></p><button onclick="payNow()">Pay and Get Followers</button></div><div id="upiBox" class="hidden"><p>Pay to UPI ID: <strong>sahilsaurav3@ybl</strong></p><p><strong>Remark:</strong> [Username] - [Followers]</p><input type="text" id="utrNumber" placeholder="Enter UTR Number"><button onclick="submitUTR()">Submit</button></div><div id="confirmationBox" class="hidden"><p>We are verifying your payment. After verification, we will complete your request.</p></div></div><script>const preloader=document.getElementById("preloader"),errorDiv=document.getElementById("error"),followersBox=document.getElementById("followersBox"),priceBox=document.getElementById("priceBox"),upiBox=document.getElementById("upiBox"),confirmationBox=document.getElementById("confirmationBox"),prices={1000:20,2000:38,3000:55,5000:85,10000:175,20000:345,30000:500,40000:650,50000:799};function validateUsername(){const e=document.getElementById("instagramUsername").value;if(!e.includes("instagram.com/"))return errorDiv.textContent="Invalid Instagram link",!1;const t=e.split("instagram.com/")[1].split("?")[0];return t?(errorDiv.textContent="",followersBox.classList.remove("hidden"),!0):(errorDiv.textContent="Invalid Instagram link",!1)}function calculatePrice(){const e=document.getElementById("followersSelect").value;if(!e)return void(errorDiv.textContent="Please select followers");const t=prices[e],n=(t+6.17).toFixed(2);priceBox.classList.remove("hidden"),document.getElementById("priceDetails").textContent=`Price: ₹${t}, Tax: ₹6.17, Total: ₹${n}`}function payNow(){priceBox.classList.add("hidden"),upiBox.classList.remove("hidden")}function submitUTR(){const e=document.getElementById("utrNumber").value;e.length!==12?errorDiv.textContent="Invalid UTR Number":(upiBox.classList.add("hidden"),confirmationBox.classList.remove("hidden"))}</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Instagram Cheapest Followers</title>
+    <style>
+        /* General Styling */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #141414;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #e50914;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #333;
+            border-radius: 5px;
+            background: #222;
+            color: white;
+            font-size: 1rem;
+        }
+
+        button {
+            padding: 15px 20px;
+            background-color: #e50914;
+            color: white;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #f40612;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .result,
+        .payment-box {
+            margin-top: 20px;
+        }
+
+        .error {
+            color: #ff4f4f;
+            margin-top: 10px;
+        }
+
+        .out-of-stock {
+            color: #ff4f4f;
+            font-weight: bold;
+        }
+
+        @media screen and (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Get Instagram Cheapest Followers</h1>
+        <input type="text" id="instagramUsername" placeholder="Enter Instagram Profile Link">
+        <button onclick="validateUsername()">Next</button>
+        <div id="error" class="error"></div>
+        
+        <!-- Followers Selection -->
+        <div id="followersBox" class="hidden">
+            <select id="followersSelect">
+                <option value="">Select Followers</option>
+                <option value="1000">1000</option>
+                <option value="2000">2000</option>
+                <option value="3000">3000</option>
+                <option value="5000">5000</option>
+                <option value="10000">10K</option>
+                <option value="20000">20K</option>
+                <option value="30000">30K</option>
+                <option value="40000">40K</option>
+                <option value="50000">50K</option>
+            </select>
+            <button onclick="calculatePrice()">Calculate Price</button>
+        </div>
+
+        <!-- Price Display -->
+        <div id="priceBox" class="hidden">
+            <p id="priceDetails"></p>
+            <button onclick="payNow()">Pay and Get Followers</button>
+        </div>
+
+        <!-- UPI Payment -->
+        <div id="upiBox" class="hidden">
+            <p>Pay to UPI ID: <strong>sahilsaurav3@ybl</strong></p>
+            <p><strong>Remark:</strong> [Username] - [Followers]</p>
+            <input type="text" id="utrNumber" placeholder="Enter UTR Number">
+            <button onclick="submitUTR()">Submit</button>
+        </div>
+
+        <!-- Submission Confirmation -->
+        <div id="confirmationBox" class="hidden">
+            <p>We are verifying your payment. After verification, we will complete your request.</p>
+        </div>
+    </div>
+
+    <script>
+        const errorDiv = document.getElementById("error");
+        const followersBox = document.getElementById("followersBox");
+        const priceBox = document.getElementById("priceBox");
+        const upiBox = document.getElementById("upiBox");
+        const confirmationBox = document.getElementById("confirmationBox");
+
+        const prices = {
+            1000: 20,
+            2000: 38,
+            3000: 55,
+            5000: 85,
+            10000: 175,
+            20000: 345,
+            30000: 500,
+            40000: 650,
+            50000: 799,
+        };
+
+        // Out of stock status
+        const outOfStock = [1000]; // Array of out of stock followers (e.g., 1000 followers is out of stock)
+
+        function validateUsername() {
+            const usernameInput = document.getElementById("instagramUsername").value;
+
+            if (!usernameInput.includes("instagram.com/")) {
+                errorDiv.textContent = "Invalid Instagram link";
+                return false;
+            }
+
+            const username = usernameInput.split("instagram.com/")[1].split("?")[0];
+
+            if (username) {
+                errorDiv.textContent = "";
+                followersBox.classList.remove("hidden");
+                return true;
+            } else {
+                errorDiv.textContent = "Invalid Instagram link";
+                return false;
+            }
+        }
+
+        function calculatePrice() {
+            const selectedFollowers = document.getElementById("followersSelect").value;
+
+            if (!selectedFollowers) {
+                errorDiv.textContent = "Please select followers";
+                return;
+            }
+
+            // Check if the selected followers are out of stock
+            if (outOfStock.includes(parseInt(selectedFollowers))) {
+                errorDiv.textContent = "";
+                errorDiv.classList.add("out-of-stock");
+                errorDiv.textContent = "Sorry, this follower package is out of stock.";
+                priceBox.classList.add("hidden");
+                return;
+            }
+
+            const basePrice = prices[selectedFollowers];
+            const totalPrice = (basePrice + 6.17).toFixed(2);
+
+            priceBox.classList.remove("hidden");
+            document.getElementById("priceDetails").textContent = `Price: ₹${basePrice}, Tax: ₹6.17, Total: ₹${totalPrice}`;
+        }
+
+        function payNow() {
+            priceBox.classList.add("hidden");
+            upiBox.classList.remove("hidden");
+        }
+
+        function submitUTR() {
+            const utrNumber = document.getElementById("utrNumber").value;
+
+            if (utrNumber.length !== 12) {
+                errorDiv.textContent = "Invalid UTR Number";
+            } else {
+                upiBox.classList.add("hidden");
+                confirmationBox.classList.remove("hidden");
+            }
+        }
+    </script>
+</body>
+</html>
