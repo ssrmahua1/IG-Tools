@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get Instagram Cheapest Followers</title>
     <style>
-        /* General Styling */
         body {
-            margin: 0;
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             color: #333;
@@ -16,40 +14,29 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            overflow: hidden;
         }
-
         .container {
-            text-align: center;
-            max-width: 600px;
-            width: 90%;
             background-color: #fff;
             padding: 20px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
         }
-
         h1 {
-            font-size: 2.5rem;
             color: #e50914;
         }
-
         .form-group {
             margin: 15px 0;
         }
-
-        input[type="text"],
-        select {
+        input[type="text"], select {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             margin: 8px 0;
             border: 1px solid #ddd;
             border-radius: 5px;
-            background: #f9f9f9;
-            color: #333;
-            font-size: 1rem;
         }
-
         button {
             padding: 12px 20px;
             background-color: #e50914;
@@ -60,51 +47,20 @@
             cursor: pointer;
             width: 100%;
         }
-
         button:hover {
             background-color: #f40612;
         }
-
         .hidden {
             display: none;
         }
-
-        .error {
-            color: #ff4f4f;
-            margin-top: 10px;
-        }
-
-        .out-of-stock {
-            color: #ff4f4f;
-            font-weight: bold;
-        }
-
-        .username {
-            font-size: 1.2rem;
-            margin-top: 20px;
-            font-weight: bold;
-        }
-
         .price-details {
-            font-size: 1.1rem;
-            margin-top: 15px;
-            margin-bottom: 15px;
-        }
-
-        .countdown {
-            font-size: 1.3rem;
-            color: #f40612;
-            margin-top: 20px;
-        }
-
-        @media screen and (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
+            font-size: 1.2rem;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
+
     <div class="container">
         <h1>Get Instagram Cheapest Followers</h1>
 
@@ -113,10 +69,10 @@
             <input type="text" id="instagramUsername" placeholder="Enter Instagram Profile Link">
         </div>
         <button onclick="validateUsername()">Next</button>
-        <div id="error" class="error"></div>
+        <div id="error" style="color: red;"></div>
 
         <!-- Display Username -->
-        <div id="usernameDisplay" class="username hidden"></div>
+        <div id="usernameDisplay" class="hidden"></div>
 
         <!-- Followers Selection -->
         <div id="followersBox" class="hidden">
@@ -140,12 +96,7 @@
             <button id="payButton" onclick="payNow()">Pay and Get Followers</button>
         </div>
 
-        <!-- Countdown Timer -->
-        <div id="countdownBox" class="hidden">
-            <p class="countdown" id="countdownText">Redirecting to payment app in 6 seconds...</p>
-        </div>
-
-        <!-- UPI Payment -->
+        <!-- UPI Payment Details -->
         <div id="upiBox" class="hidden">
             <p>Pay to UPI ID: <strong>sahilsaurav3@ybl</strong></p>
         </div>
@@ -156,7 +107,7 @@
             <button onclick="submitUTR()">Submit</button>
         </div>
 
-        <!-- Submission Confirmation -->
+        <!-- Confirmation -->
         <div id="confirmationBox" class="hidden">
             <p>We are verifying your payment. After verification, we will complete your request.</p>
         </div>
@@ -166,14 +117,11 @@
         const errorDiv = document.getElementById("error");
         const followersBox = document.getElementById("followersBox");
         const priceBox = document.getElementById("priceBox");
-        const countdownBox = document.getElementById("countdownBox");
         const upiBox = document.getElementById("upiBox");
         const utrBox = document.getElementById("utrBox");
         const confirmationBox = document.getElementById("confirmationBox");
         const usernameDisplay = document.getElementById("usernameDisplay");
         const payButton = document.getElementById("payButton");
-        const countdownText = document.getElementById("countdownText");
-
         const prices = {
             1000: 20,
             2000: 38,
@@ -186,27 +134,21 @@
             50000: 799,
         };
 
-        // Out of stock status
-        const outOfStock = [1000]; // Array of out of stock followers (e.g., 1000 followers is out of stock)
-
         function validateUsername() {
             const usernameInput = document.getElementById("instagramUsername").value;
-            const errorMessage = "Invalid Instagram link. Please try again.";
-
             if (!usernameInput.includes("instagram.com/")) {
-                errorDiv.textContent = errorMessage;
+                errorDiv.textContent = "Invalid Instagram link. Please try again.";
                 return;
             }
 
             const username = usernameInput.split("instagram.com/")[1].split("?")[0];
-
             if (username) {
                 errorDiv.textContent = "";
                 usernameDisplay.textContent = `Your Instagram Username is: ${username}`;
                 usernameDisplay.classList.remove("hidden");
                 followersBox.classList.remove("hidden");
             } else {
-                errorDiv.textContent = errorMessage;
+                errorDiv.textContent = "Invalid Instagram link. Please try again.";
             }
         }
 
@@ -215,15 +157,6 @@
 
             if (!selectedFollowers) {
                 errorDiv.textContent = "Please select followers";
-                return;
-            }
-
-            // Check if the selected followers are out of stock
-            if (outOfStock.includes(parseInt(selectedFollowers))) {
-                errorDiv.textContent = "";
-                errorDiv.classList.add("out-of-stock");
-                errorDiv.textContent = "Sorry, this follower package is out of stock.";
-                priceBox.classList.add("hidden");
                 return;
             }
 
@@ -239,47 +172,28 @@
             const username = document.getElementById("instagramUsername").value.split("instagram.com/")[1].split("?")[0];
             const totalPrice = (prices[selectedFollowers] + 6.17).toFixed(2);
 
-            // Countdown display
-            countdownBox.classList.remove("hidden");
-            let countdown = 6;
-            const interval = setInterval(() => {
-                countdownText.textContent = `Redirecting to payment app in ${countdown} seconds...`;
-                if (countdown <= 0) {
-                    clearInterval(interval);
-                    redirectToPayment(username, selectedFollowers, totalPrice);
-                }
-                countdown--;
-            }, 1000);
-        }
+            // Create UPI link
+            const upiLink = `upi://pay?pa=sahilsaurav3@ybl&am=${totalPrice}&cu=INR&tn=Payment%20for%20Followers`;
 
-        function redirectToPayment(username, selectedFollowers, totalPrice) {
-            const upiLink = `upi://pay?pa=sahilsaurav3@ybl&am=${totalPrice}&cu=INR`;
+            // Redirecting to UPI payment link (it will open in Paytm, PhonePe, or other UPI apps installed on the device)
+            upiBox.classList.remove("hidden");
+            upiBox.innerHTML = `Pay ₹${totalPrice} to UPI ID: <strong>sahilsaurav3@ybl</strong><br><br> 
+            <a href="${upiLink}" target="_blank">Click here to Pay via UPI (Paytm/PhonePe)</a>`;
 
-            // Open payment app in a new tab to ensure it works correctly on mobile devices
-            window.open(upiLink, "_blank");
-
-            // Wait for 10 seconds to show UTR box after payment app redirection
             setTimeout(() => {
                 utrBox.classList.remove("hidden");
-            }, 10000); // After 10 seconds, show UTR input box
+            }, 10000); // Show UTR box after 10 seconds
         }
 
         function submitUTR() {
             const utrNumber = document.getElementById("utrNumber").value;
-
             if (utrNumber.length !== 12 || isNaN(utrNumber)) {
                 alert("Invalid UTR number.");
                 return;
             }
 
             // Hide all elements and show confirmation message
-            document.getElementById("instagramUsername").classList.add("hidden");
-            followersBox.classList.add("hidden");
-            priceBox.classList.add("hidden");
-            countdownBox.classList.add("hidden");
-            upiBox.classList.add("hidden");
-            utrBox.classList.add("hidden");
-
+            document.body.innerHTML = "";
             confirmationBox.classList.remove("hidden");
         }
     </script>
