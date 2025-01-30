@@ -70,7 +70,8 @@ function displayResult() {
         resultContainer.style.display = 'block';
 
         // Populate result details
-        document.getElementById('student-name').querySelector('span').innerText = student.name;
+        document.getElementById('roll-number-result').innerText = rollNumber;
+        document.getElementById('student-name-result').innerText = student.name;
         document.getElementById('school-name').innerText = schoolName;
 
         const resultTable = document.getElementById('result-table');
@@ -82,14 +83,23 @@ function displayResult() {
             <tr><td>Social</td><td>${student.social}</td></tr>
         `;
 
-        // Check if the student passed (Total marks > 30% in each subject)
-        const pass = [student.hindi, student.english, student.math, student.science, student.social].every(m => m >= 30);
+        // Calculate CGPA and check pass/fail status
+        const totalMarks = student.hindi + student.english + student.math + student.science + student.social;
+        const maxMarks = 500;
+        const percentage = (totalMarks / maxMarks) * 100;
+        const cgpa = (percentage / 9.5).toFixed(2); // Example CGPA calculation (out of 10 scale)
+
+        const pass = [student.hindi, student.english, student.math, student.science, student.social].every(m => m >= 33);
         const status = pass ? 'Passed' : 'Failed';
         document.getElementById('status').querySelector('span').innerText = status;
+        document.getElementById('cgpa').innerText = cgpa;
     }
 }
 
-// Generate CAPTCHA when the page loads
-window.onload = function() {
-    generateCaptcha();
-};
+function shareResult() {
+    // Here you would implement the functionality to share the result image.
+    alert("Result shared successfully!");
+}
+
+// Run captcha generator on page load
+window.onload = generateCaptcha;
