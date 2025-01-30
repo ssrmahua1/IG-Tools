@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>School Result</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Header Section -->
     <header>
         <div class="header">
-            <img src="https://i.pinimg.com/736x/ea/14/0a/ea140a9f6e4681b64b35262cf873f026.jpg" alt="School Logo" class="logo">
+            <img src="school_logo.png" alt="School Logo" class="logo">
             <h1>School Result</h1>
             <p class="subtitle">Check your exam results here</p>
         </div>
@@ -48,8 +48,10 @@
     <div class="result-container" id="result-container">
         <h3>Student Result</h3>
         <div class="result-header">
-            <h4 id="student-name">Student Name: <span></span></h4>
+            <h4>Roll Number: <span id="roll-number-result"></span></h4>
+            <h4>Student Name: <span id="student-name-result"></span></h4>
             <h4>School: <span id="school-name"></span></h4>
+            <h4>Class: <span>8</span></h4>
         </div>
         <table>
             <thead>
@@ -63,6 +65,11 @@
             </tbody>
         </table>
         <h3 id="status">Result: <span></span></h3>
+        <h4>CGPA: <span id="cgpa"></span></h4>
+        <h4>Father's Name: XXX</h4>
+        <h4>Mother's Name: YYY</h4>
+
+        <button id="share-btn" onclick="shareResult()">Share Result</button>
     </div>
 
     <footer>
