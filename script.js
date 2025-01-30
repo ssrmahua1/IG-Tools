@@ -47,60 +47,35 @@ function generateCaptcha() {
     document.getElementById('captcha-question').innerText = `What is ${num1} + ${num2}?`;
 }
 
-function showResult() {
-    const school = document.getElementById('school').value;
-    const rollNumber = document.getElementById('rollNumber').value;
-    const student = studentsData[school].find(s => s.roll == rollNumber);
+function displayResult() {
+    const schoolName = document.getElementById('school').value;
+    const rollNumber = document.getElementById('roll-number').value;
+    const resultContainer = document.getElementById('result-container');
+    const submitBtn = document.getElementById('submit-btn');
+
+    const student = studentsData[schoolName].find(s => s.roll == rollNumber);
 
     if (student) {
-        const total = student.hindi + student.english + student.math + student.science + student.social;
-        const cgpa = (total / 500) * 10;
-        const passFail = (student.hindi >= 30 && student.english >= 30 && student.math >= 30 && student.science >= 30 && student.social >= 30) ? 'Pass' : 'Fail';
-
-        const resultContainer = document.getElementById('result-container');
-        const resultTable = document.getElementById('result-table');
-        const showButton = document.getElementById('show-button');
-        const schoolSelect = document.getElementById('school');
-
+        // Hide form and show result
+        document.querySelector('.container').style.display = 'none';
         resultContainer.style.display = 'block';
-        showButton.style.display = 'none';
-        schoolSelect.style.display = 'none';
 
+        // Populate result details
+        document.getElementById('student-name').querySelector('span').innerText = student.name;
+        document.getElementById('school-name').innerText = schoolName;
+
+        const resultTable = document.getElementById('result-table');
         resultTable.innerHTML = `
-            <tr><th>Name</th><td>${student.name}</td></tr>
-            <tr><th>Father's Name</th><td>XYZ</td></tr>
-            <tr><th>Mother's Name</th><td>XYZ</td></tr>
-            <tr><th>Hindi</th><td>${student.hindi}</td></tr>
-            <tr><th>English</th><td>${student.english}</td></tr>
-            <tr><th>Math</th><td>${student.math}</td></tr>
-            <tr><th>Science</th><td>${student.science}</td></tr>
-            <tr><th>Social</th><td>${student.social}</td></tr>
-            <tr><th>Total</th><td>${total}</td></tr>
-            <tr><th>CGPA</th><td>${cgpa.toFixed(2)}</td></tr>
-            <tr><th>Status</th><td>${passFail}</td></tr>
+            <tr><td>Hindi</td><td>${student.hindi}</td></tr>
+            <tr><td>English</td><td>${student.english}</td></tr>
+            <tr><td>Math</td><td>${student.math}</td></tr>
+            <tr><td>Science</td><td>${student.science}</td></tr>
+            <tr><td>Social</td><td>${student.social}</td></tr>
         `;
-    } else {
-        alert('Student not found!');
+
+        // Check if the student passed (Total marks > 30% in each subject)
+        const pass = [student.hindi, student.english, student.math, student.science, student.social].every(m => m >= 30);
+        const status = pass ? 'Passed' : 'Failed';
+        document.getElementById('status').querySelector('span').innerText = status;
     }
 }
-
-function checkCaptcha() {
-    const userAnswer = parseInt(document.getElementById('captcha-answer').value);
-    if (userAnswer === captchaAnswer) {
-        showResult();
-    } else {
-        alert('Incorrect CAPTCHA answer!');
-    }
-}
-
-function downloadPDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    const resultTable = document.getElementById('result-table');
-
-    doc.text("Student Result", 10, 10);
-    doc.autoTable({ html: '#result-table', startY: 20 });
-    doc.save('result.pdf');
-}
-
-window.onload = generateCaptcha;
