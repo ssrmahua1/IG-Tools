@@ -94,36 +94,21 @@ function displayResult() {
         document.getElementById('cgpa').innerText = cgpa;
     }
 }
+function calculateTotalMarks(hindi, english, math, science, social) {
+    return hindi + english + math + science + social;
+}
 
-// Function to share result
-function shareResult() {
-    // Create a canvas element to draw the result image
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
+// Example usage
+let hindiMarks = 80;
+let englishMarks = 85;
+let mathMarks = 90;
+let scienceMarks = 88;
+let socialMarks = 78;
 
-    // Set canvas size and style (same as your result display)
-    canvas.width = 500;
-    canvas.height = 600;
-    ctx.fillStyle = '#f44336'; // Red background
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+let totalMarks = calculateTotalMarks(hindiMarks, englishMarks, mathMarks, scienceMarks, socialMarks);
+console.log("Total Marks: " + totalMarks);
 
-    ctx.fillStyle = '#fff';
-    ctx.font = '24px Arial';
-    ctx.fillText('Result: ' + document.getElementById('student-name-result').innerText, 50, 50);
-    ctx.fillText('Roll No: ' + document.getElementById('roll-number-result').innerText, 50, 100);
-    ctx.fillText('School: ' + document.getElementById('school-name').innerText, 50, 150);
-    ctx.fillText('CGPA: ' + document.getElementById('cgpa').innerText, 50, 200);
-    ctx.fillText('Status: ' + document.getElementById('status').querySelector('span').innerText, 50, 250);
 
-    // Convert canvas to an image and share it (for simplicity, sharing via data URL)
-    const resultImage = canvas.toDataURL('image/png');
-
-    // Here, you would implement the code to share the image to WhatsApp or another app
-    // For example, sharing the result as a URL with WhatsApp
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent('Check this result! ' + resultImage)}`;
-
-    // Open WhatsApp sharing URL
-    window.open(whatsappUrl, '_blank');
 }
 
 window.onload = generateCaptcha;
