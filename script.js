@@ -38,18 +38,27 @@ const studentsData = {
 
 };
 
-let captchaAnswer = 0;
+let captchaAnswer;
 
 function generateCaptcha() {
-    const num1 = Math.floor(Math.random() * 10);
-    const num2 = Math.floor(Math.random() * 10);
-    captchaAnswer = num1 + num2;
-    document.getElementById('captcha-question').innerText = `What is ${num1} + ${num2}?`;
+    // Generate a random math problem
+    const num1 = Math.floor(Math.random() * 10) + 1;
+    const num2 = Math.floor(Math.random() * 10) + 1;
+    captchaAnswer = num1 + num2; // Store the correct answer
+    document.getElementById('captcha-problem').textContent = `${num1} + ${num2} = ?`;
 }
 
 function displayResult() {
     const schoolName = document.getElementById('school').value;
     const rollNumber = document.getElementById('roll-number').value;
+    const captchaInput = document.getElementById('captcha-answer').value;
+
+    // Check if CAPTCHA is correct
+    if (parseInt(captchaInput) !== captchaAnswer) {
+        alert("Incorrect CAPTCHA answer. Please try again.");
+        return;
+    }
+
     const resultContainer = document.getElementById('result-container');
     const submitBtn = document.getElementById('submit-btn');
 
@@ -79,3 +88,8 @@ function displayResult() {
         document.getElementById('status').querySelector('span').innerText = status;
     }
 }
+
+// Generate CAPTCHA when the page loads
+window.onload = function() {
+    generateCaptcha();
+};
