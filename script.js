@@ -97,8 +97,9 @@ function downloadPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     const resultTable = document.getElementById('result-table');
+
     doc.text("Student Result", 10, 10);
-    doc.autoTable({ html: '#result-table' });
+    doc.autoTable({ html: '#result-table', startY: 20 });
     doc.save('result.pdf');
 }
 
