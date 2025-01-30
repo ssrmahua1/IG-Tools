@@ -145,6 +145,12 @@ th {
     margin-top: 20px;
 }
 
+#cgpa {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
 footer {
     text-align: center;
     padding: 10px;
