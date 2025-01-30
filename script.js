@@ -37,7 +37,6 @@ const studentsData = {
             ]
 
 };
-
 let captchaAnswer;
 
 function generateCaptcha() {
