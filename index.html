@@ -3,36 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Check Result</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>School Result</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Header Section -->
+    <header>
+        <div class="header">
+            <img src="school_logo.png" alt="School Logo" class="logo">
+            <h1>School Result</h1>
+            <p class="subtitle">Check your exam results here</p>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
     <div class="container">
         <h2>Check Student Result</h2>
-        <select id="school" style="display: block;">
-            <option value="Oxford Public School">Oxford Public School</option>
-            <option value="St Joseph School">St Joseph School</option>
-            <option value="St Johns School">St Johns School</option>
-        </select>
-        <input type="text" id="rollNumber" placeholder="Enter Roll Number" />
-        <div class="captcha">
-            <label id="captcha-question"></label>
-            <input type="text" id="captcha-answer" placeholder="Enter CAPTCHA answer" />
+        <!-- Form to get student data -->
+        <div class="form-group">
+            <label for="school">School Name:</label>
+            <select id="school">
+                <option value="Oxford Public School">Oxford Public School</option>
+                <option value="St Joseph School">St Joseph School</option>
+                <option value="St Johns School">St Johns School</option>
+            </select>
         </div>
-        <button id="show-button" onclick="checkCaptcha()">Check Result</button>
+        <div class="form-group">
+            <label for="roll-number">Roll Number:</label>
+            <input type="number" id="roll-number" placeholder="Enter Roll Number" required>
+        </div>
+        <div class="form-group">
+            <button id="submit-btn" onclick="displayResult()">Submit</button>
+        </div>
     </div>
 
+    <!-- Result Display Section -->
     <div class="result-container" id="result-container">
-        <div class="header">
-            <span>Result</span>
+        <h3>Student Result</h3>
+        <div class="result-header">
+            <h4 id="student-name">Student Name: <span></span></h4>
+            <h4>School: <span id="school-name"></span></h4>
         </div>
-        <div class="content">
-            <table id="result-table"></table>
-        </div>
-        <button onclick="downloadPDF()">Download PDF</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Marks Obtained</th>
+                </tr>
+            </thead>
+            <tbody id="result-table">
+                <!-- Dynamically filled with JavaScript -->
+            </tbody>
+        </table>
+        <h3 id="status">Result: <span></span></h3>
     </div>
 
-    <script src="pdf.js"></script>
+    <footer>
+        <p>&copy; 2025 School Result. All Rights Reserved.</p>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
