@@ -93,21 +93,13 @@ button:hover {
     border-radius: 8px;
     overflow: hidden;
     margin-top: 20px;
-}
-
-.result-container .header {
-    background-color: #f44336;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.content {
+    margin-bottom: 20px;
     padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
 }
 
+/* Table Styling */
 .content table {
     width: 100%;
     border-collapse: collapse;
@@ -144,9 +136,19 @@ footer {
 
     .result-container {
         max-width: 90%;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     button {
         width: 100%;
+    }
+
+    .content {
+        padding: 10px;
+    }
+
+    .content table {
+        font-size: 14px;
     }
 }
