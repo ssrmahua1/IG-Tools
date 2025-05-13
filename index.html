@@ -2,34 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sahil's Link Shortener</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Link Shortener</title>
   <style>
     body {
-      margin: 0;
-      font-family: 'Arial', sans-serif;
+      font-family: Arial, sans-serif;
       background-color: #141414;
       color: white;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      margin: 0;
     }
+
     .container {
-      text-align: center;
       background-color: #1e1e1e;
       padding: 30px;
       border-radius: 12px;
+      text-align: center;
+      width: 400px;
       box-shadow: 0 0 20px #e50914;
     }
+
     input {
       display: block;
-      width: 300px;
+      width: 100%;
       margin: 10px auto;
       padding: 10px;
       font-size: 16px;
       border-radius: 8px;
       border: none;
     }
+
     button {
       background-color: #e50914;
       color: white;
@@ -40,91 +45,85 @@
       cursor: pointer;
       transition: background 0.3s;
     }
+
     button:hover {
       background-color: #b00610;
     }
+
     #result {
       margin-top: 20px;
       font-size: 18px;
     }
+
+    a {
+      color: #e50914;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
+
   <div class="container">
-    <h1>🔗 Sahil's Link Shortener</h1>
+    <h1>🔗 Simple Link Shortener</h1>
     <input type="text" id="longUrl" placeholder="Enter your long URL">
-    <input type="text" id="manualWord" placeholder="Enter a custom word (e.g., netflix)">
     <button onclick="shortenLink()">Shorten</button>
     <div id="result"></div>
   </div>
 
   <script>
-    const STORAGE_URL = "https://api.npoint.io/5f8586ea9644ea688c5f";
+    // Function to generate a random short key
+    function generateShortKey() {
+      return Math.random().toString(36).substring(2, 8); // Random 6 character string
+    }
 
-    async function shortenLink() {
-      const longUrl = document.getElementById("longUrl").value.trim();
-      const manualWord = document.getElementById("manualWord").value.trim().toLowerCase();
-      const resultDiv = document.getElementById("result");
+    // Function to shorten the link
+    function shortenLink() {
+      const longUrl = document.getElementById('longUrl').value.trim();
+      const resultDiv = document.getElementById('result');
 
-      if (!longUrl || !manualWord) {
-        resultDiv.innerHTML = "<span style='color:red;'>Please fill both fields.</span>";
+      if (!longUrl) {
+        resultDiv.innerHTML = "<span style='color:red;'>Please enter a URL!</span>";
         return;
       }
 
-      const shortKey = `sahil-${manualWord}`;
+      // Check if the long URL already has a shortened version
+      let data = JSON.parse(localStorage.getItem('links')) || {};
+      let shortKey = generateShortKey();
 
-      try {
-        // Fetch existing data
-        let res = await fetch(STORAGE_URL);
-        let data = await res.json();
-
-        if (data[shortKey]) {
-          resultDiv.innerHTML = `<span style='color:orange;'>This word already exists! Try another.</span>`;
-          return;
-        }
-
-        // Add new mapping
-        data[shortKey] = longUrl;
-
-        await fetch(STORAGE_URL, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        });
-
-        const base = window.location.origin + window.location.pathname;
-        const shortUrl = `${base}?go=${shortKey}`;
-
-        resultDiv.innerHTML = `
-          ✅ Shortened URL:<br>
-          <a href="${shortUrl}" style="color:#e50914" target="_blank">${shortUrl}</a>
-        `;
-      } catch (err) {
-        resultDiv.innerHTML = "<span style='color:red;'>Error saving the link!</span>";
-        console.error(err);
+      // Ensure the short key is unique
+      while (data[shortKey]) {
+        shortKey = generateShortKey();
       }
+
+      // Store the long URL with the short key
+      data[shortKey] = longUrl;
+      localStorage.setItem('links', JSON.stringify(data));
+
+      // Display the shortened link
+      const shortUrl = `${window.location.origin}?${shortKey}`;
+      resultDiv.innerHTML = `
+        ✅ Shortened URL:<br>
+        <a href="${shortUrl}" target="_blank">${shortUrl}</a>
+      `;
     }
 
-    // Redirect logic on page load
-    window.onload = async () => {
+    // Check for the short key in the URL and redirect if found
+    window.onload = function() {
       const urlParams = new URLSearchParams(window.location.search);
-      const goKey = urlParams.get('go');
+      const shortKey = urlParams.get('shortKey');
 
-      if (goKey) {
-        try {
-          let res = await fetch(STORAGE_URL);
-          let data = await res.json();
-
-          if (data[goKey]) {
-            window.location.href = data[goKey];
-          } else {
-            document.body.innerHTML = "<h1 style='color:red;text-align:center;'>🔗 Link not found.</h1>";
-          }
-        } catch (err) {
-          document.body.innerHTML = "<h1 style='color:red;text-align:center;'>Error loading redirect.</h1>";
+      if (shortKey) {
+        const data = JSON.parse(localStorage.getItem('links')) || {};
+        const longUrl = data[shortKey];
+        
+        if (longUrl) {
+          window.location.href = longUrl;
+        } else {
+          document.body.innerHTML = "<h1 style='color:red; text-align:center;'>Link not found!</h1>";
         }
       }
     };
   </script>
+
 </body>
 </html>
