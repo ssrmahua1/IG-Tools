@@ -1,88 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Result</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Sahil's Link Shortener</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #141414;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      text-align: center;
+      background-color: #1e1e1e;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #e50914;
+    }
+    input {
+      display: block;
+      width: 300px;
+      margin: 10px auto;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+    }
+    button {
+      background-color: #e50914;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #b00610;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
 </head>
 <body>
-    <!-- Header Section -->
-    <header>
-        <div class="header">
-            <img src="https://i.pinimg.com/736x/ea/14/0a/ea140a9f6e4681b64b35262cf873f026.jpg" alt="School Logo" class="logo">
-            <h1>School Result</h1>
-            <p class="subtitle">Check your exam results here</p>
-        </div>
-    </header>
+  <div class="container">
+    <h1>🔗 Sahil's Link Shortener</h1>
+    <input type="text" id="longUrl" placeholder="Enter your long URL">
+    <input type="text" id="manualWord" placeholder="Enter a custom word (e.g., netflix)">
+    <button onclick="shortenLink()">Shorten</button>
+    <div id="result"></div>
+  </div>
 
-    <!-- Main Content Section -->
-    <div class="container">
-        <h2>Check Student Result</h2>
-        <!-- Form to get student data -->
-        <div class="form-group">
-            <label for="school">School Name:</label>
-            <select id="school">
-                <option value="Oxford Public School">Oxford Public School</option>
-                <option value="St Joseph School">St Joseph School</option>
-                <option value="St Johns School">St Johns School</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="roll-number">Roll Number:</label>
-            <input type="number" id="roll-number" placeholder="Enter Roll Number" required>
-        </div>
+  <script>
+    const STORAGE_URL = "https://api.npoint.io/5f8586ea9644ea688c5f";
 
-        <!-- Math CAPTCHA -->
-        <div class="captcha">
-            <label for="captcha-answer">Solve this: <span id="captcha-problem"></span></label>
-            <input type="number" id="captcha-answer" placeholder="Enter the answer" required>
-        </div>
+    async function shortenLink() {
+      const longUrl = document.getElementById("longUrl").value.trim();
+      const manualWord = document.getElementById("manualWord").value.trim().toLowerCase();
+      const resultDiv = document.getElementById("result");
 
-        <div class="form-group">
-            <button id="submit-btn" onclick="displayResult()">Submit</button>
-        </div>
-    </div>
+      if (!longUrl || !manualWord) {
+        resultDiv.innerHTML = "<span style='color:red;'>Please fill both fields.</span>";
+        return;
+      }
 
-    <!-- Result Display Section -->
-    <div class="result-container" id="result-container">
-        <h3>Student Result</h3>
-        <div class="result-header">
-            <h3>School: <span id="school-name"></span></h3>
-            <h3> Mahua Vaishali(Bihar)</h3>
-            <h4>Class: <span>8</span></h4>
-            <h4>Roll Number: <span id="roll-number-result"></span></h4>
-            <h4>Student Name: <span id="student-name-result"></span></h4>
-            <h4>Father's Name: XXXXXXXXX</h4>
-            <h4>Mother's Name: YYYYYYYYY</h4>
-            <h6> This is a provisional result issued for the student. The information provided herein is based on the available data and calculations. In case of any discrepancies or issues regarding the marks, CGPA, or status, the result is subject to verification and confirmation from the school administration. For any clarification or further inquiries, please contact the school office.
+      const shortKey = `sahil-${manualWord}`;
 
-</h6>
-            
-            
-        </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Subject</th>
-                    <th>Marks Obtained</th>
-                </tr>
-            </thead>
-            <tbody id="result-table">
-                <!-- Dynamically filled with JavaScript -->
-            </tbody>
-        </table>
-        <h3 id="status">Result: <span></span></h3>
-        <h4>CGPA: <span id="cgpa"></span></h4>
-        
+      try {
+        // Fetch existing data
+        let res = await fetch(STORAGE_URL);
+        let data = await res.json();
 
-       
-    </div>
+        if (data[shortKey]) {
+          resultDiv.innerHTML = `<span style='color:orange;'>This word already exists! Try another.</span>`;
+          return;
+        }
 
-    <footer>
-        <p>&copy; 2025 School Result. All Rights Reserved.</p>
-    </footer>
+        // Add new mapping
+        data[shortKey] = longUrl;
 
-    <script src="script.js"></script>
+        await fetch(STORAGE_URL, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+
+        const base = window.location.origin + window.location.pathname;
+        const shortUrl = `${base}?go=${shortKey}`;
+
+        resultDiv.innerHTML = `
+          ✅ Shortened URL:<br>
+          <a href="${shortUrl}" style="color:#e50914" target="_blank">${shortUrl}</a>
+        `;
+      } catch (err) {
+        resultDiv.innerHTML = "<span style='color:red;'>Error saving the link!</span>";
+        console.error(err);
+      }
+    }
+
+    // Redirect logic on page load
+    window.onload = async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const goKey = urlParams.get('go');
+
+      if (goKey) {
+        try {
+          let res = await fetch(STORAGE_URL);
+          let data = await res.json();
+
+          if (data[goKey]) {
+            window.location.href = data[goKey];
+          } else {
+            document.body.innerHTML = "<h1 style='color:red;text-align:center;'>🔗 Link not found.</h1>";
+          }
+        } catch (err) {
+          document.body.innerHTML = "<h1 style='color:red;text-align:center;'>Error loading redirect.</h1>";
+        }
+      }
+    };
+  </script>
 </body>
 </html>
